@@ -178,7 +178,7 @@ export default function GanttChart() {
           },
           date_format: "YYYY/MM/DD",
           language: "ko",
-          bar_height: 30,
+          bar_height: 70,
           column_width: 100,
           bar_corner_radius: 4,
           arrow_curve: 5,

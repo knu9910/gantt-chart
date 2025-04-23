@@ -3,7 +3,7 @@
   --g-project-border: #4338ca;
   --g-project-progress: #6366f1;
   --g-project-row: #eef2ff;
-  --g-project-text: #312e81;
+  --g-project-text: #ffffff;
 
   --g-task-color: #818cf8;
   --g-task-border: #6366f1;
@@ -20,8 +20,8 @@
   --g-border-color: #e5e7eb;
   --g-text-muted: #6b7280;
   --g-text-light: #ffffff;
-  --g-text-dark: #1e293b;
-  --g-progress-color: #4f46e5;
+  --g-text-dark: rgb(18, 93, 230);
+  --g-progress-color: #818cf8;
   --g-handle-color: #4f46e5;
   --g-weekend-label-color: #f3f4f6;
   --g-expected-progress: #818cf8;
