@@ -1,0 +1,35 @@
+:root {
+  --g-project-color: #4f46e5;
+  --g-project-border: #4338ca;
+  --g-project-progress: #6366f1;
+  --g-project-row: #eef2ff;
+  --g-project-text: #312e81;
+
+  --g-task-color: #818cf8;
+  --g-task-border: #6366f1;
+  --g-task-progress: #a5b4fc;
+  --g-task-row: #f5f3ff;
+  --g-task-text: #4c1d95;
+
+  --g-arrow-color: #4f46e5;
+  --g-bar-color: #ffffff;
+  --g-bar-border: #e5e7eb;
+  --g-tick-color-thick: #f3f4f6;
+  --g-tick-color: #f9fafb;
+  --g-actions-background: #f3f4f6;
+  --g-border-color: #e5e7eb;
+  --g-text-muted: #6b7280;
+  --g-text-light: #ffffff;
+  --g-text-dark: #1e293b;
+  --g-progress-color: #4f46e5;
+  --g-handle-color: #4f46e5;
+  --g-weekend-label-color: #f3f4f6;
+  --g-expected-progress: #818cf8;
+  --g-header-background: #ffffff;
+  --g-row-color: #ffffff;
+  --g-row-border-color: #e5e7eb;
+  --g-today-highlight: #4f46e5;
+  --g-popup-actions: #4f46e5;
+  --g-weekend-highlight-color: #f9fafb;
+  --g-grid-background: #ffffff;
+}
