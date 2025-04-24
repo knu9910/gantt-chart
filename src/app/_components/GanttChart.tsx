@@ -1,34 +1,7 @@
 "use client";
 import "./gantt.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Gantt from "frappe-gantt";
-
-const tasks = [
-  {
-    id: "Task 1",
-    name: "프로젝트 기획",
-    start: "2025-01-01",
-    end: "2025-01-05",
-  },
-  {
-    id: "Task 2",
-    name: "UI/UX 디자인",
-    start: "2025-01-03",
-    end: "2025-01-10",
-  },
-  {
-    id: "Task 3",
-    name: "프론트엔드 개발",
-    start: "2025-01-08",
-    end: "2025-01-20",
-  },
-  {
-    id: "Task 4",
-    name: "백엔드 개발",
-    start: "2025-01-15",
-    end: "2025-3-31",
-  },
-];
 
 export default function GanttChart() {
   const ganttRef = useRef<HTMLDivElement>(null);
@@ -37,7 +10,7 @@ export default function GanttChart() {
   useEffect(() => {
     if (!ganttRef.current) return;
 
-    ganttInstance.current = new Gantt(ganttRef.current, tasks, {
+    ganttInstance.current = new Gantt(ganttRef.current, [], {
       view_mode: "Day",
       date_format: "YYYY-MM-DD",
       language: "ko",
