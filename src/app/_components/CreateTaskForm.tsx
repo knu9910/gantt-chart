@@ -22,11 +22,12 @@ export default function CreateTaskForm() {
     progress: 0,
   });
 
-  const { createTask } = useTasks();
+  const { createTask, refetch } = useTasks();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    createTask(formData);
+    await createTask(formData);
+    refetch();
     setFormData({
       name: "",
       start: "",

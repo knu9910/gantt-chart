@@ -4,15 +4,23 @@ import { useUpdateTask } from "./useUpdateTask";
 import { useDeleteTask } from "./useDeleteTask";
 
 export function useTasks() {
-  const { data: tasks = [], isLoading, error } = useFetchTasks();
-  const { mutate: createTask } = useCreateTask();
-  const { mutate: updateTask } = useUpdateTask();
-  const { mutate: deleteTask } = useDeleteTask();
+  const {
+    data: tasks = [],
+    isLoading,
+    isFetching,
+    error,
+    refetch,
+  } = useFetchTasks();
+  const { mutateAsync: createTask } = useCreateTask();
+  const { mutateAsync: updateTask } = useUpdateTask();
+  const { mutateAsync: deleteTask } = useDeleteTask();
 
   return {
     tasks,
     isLoading,
+    isFetching,
     error,
+    refetch,
     createTask,
     updateTask,
     deleteTask,
