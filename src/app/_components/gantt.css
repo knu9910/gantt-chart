@@ -207,7 +207,8 @@
     left: 0;
     opacity: 0;
     z-index: 1000;
-    background: --g-weekend-label-color;
+    border: 1px solid black;
+    background: var(--g-weekend-label-color);
     border-radius: 5px;
     padding: 2px 5px;
 
@@ -232,6 +233,9 @@
     }
   }
 
+  .holiday-highlight {
+    stroke: #1e293b;
+  }
   & .today-highlight {
     position: absolute;
     background: var(--g-today-highlight);
@@ -264,6 +268,7 @@
 }
 
 .gantt {
+  height: 1000px !important;
   user-select: none;
   -webkit-user-select: none;
   position: absolute;
@@ -272,46 +277,22 @@
     fill: none;
   }
 
-  & .grid-header {
-    fill: var(--g-header-bg);
-  }
-
   & .grid-row {
     fill: var(--g-row-color);
   }
 
   & .row-line {
     stroke: var(--g-border-color);
-    stroke-width: 0.5;
   }
 
   & .tick {
     stroke: var(--g-tick-color);
-    stroke-width: 0.8;
-    opacity: 0.5;
+    stroke-width: 0.4;
 
     &.thick {
       stroke: var(--g-tick-color-thick);
-      stroke-width: 1;
-      opacity: 0.8;
+      stroke-width: 0.7;
     }
-  }
-
-  & .grid-header .tick {
-    stroke: var(--g-border-color);
-    stroke-width: 0.8;
-    opacity: 0.5;
-  }
-
-  & .grid-header .tick.thick {
-    stroke: var(--g-border-color);
-    stroke-width: 1;
-    opacity: 0.8;
-  }
-
-  & .today-highlight {
-    fill: var(--g-today-highlight);
-    opacity: 0.5;
   }
 
   & .arrow {
@@ -324,8 +305,7 @@
     fill: var(--g-bar-color);
     stroke: var(--g-bar-border);
     stroke-width: 0;
-    transition: all 0.2s ease;
-    border-radius: 4px;
+    transition: stroke-width 0.3s ease;
   }
 
   & .bar-progress {
@@ -335,7 +315,6 @@
 
   & .bar-expected-progress {
     fill: var(--g-expected-progress);
-    opacity: 0.3;
   }
 
   & .bar-invalid {
@@ -352,10 +331,9 @@
   & .bar-label {
     fill: var(--g-text-dark);
     dominant-baseline: central;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 500;
+    font-family: Helvetica;
+    font-size: 13px;
+    font-weight: 400;
 
     &.big {
       fill: var(--g-text-dark);
@@ -366,11 +344,10 @@
   & .handle {
     fill: var(--g-handle-color);
     opacity: 0;
-    transition: opacity 0.2s ease;
-    cursor: ew-resize;
-
+    transition: opacity 0.3s ease;
     &.active,
     &.visible {
+      cursor: ew-resize;
       opacity: 1;
     }
   }
@@ -384,13 +361,12 @@
 
     & .bar {
       outline: 1px solid var(--g-row-border-color);
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
     &:hover {
       .bar {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
       }
 
       .date-range-highlight {

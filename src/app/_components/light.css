@@ -15,7 +15,7 @@
   --g-bar-color: #ffffff;
   --g-bar-border: #e5e7eb;
   --g-tick-color-thick: #f3f4f6;
-  --g-tick-color: #f9fafb;
+  --g-tick-color: #1e293b;
   --g-actions-background: #f3f4f6;
   --g-border-color: #1e293b;
   --g-text-muted: #6b7280;
@@ -23,7 +23,7 @@
   --g-text-dark: #1e293b;
   --g-progress-color: #4f46e5;
   --g-handle-color: #4f46e5;
-  --g-weekend-label-color: #f3f4f6;
+  --g-weekend-label-color: #1e293b;
   --g-expected-progress: #818cf8;
   --g-header-background: #ffffff;
   --g-row-color: #ffffff;
