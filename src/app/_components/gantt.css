@@ -68,14 +68,11 @@
     }
   }
 
-  .grid {
-    height: 3000px !important;
-  }
   & .grid-header {
     height: calc(
       var(--gv-lower-header-height) + var(--gv-upper-header-height) + 10px
     );
-    /* background-color: var(--g-header-background); */
+    background-color: var(--g-header-background);
     position: sticky;
     top: 0;
     left: 0;
@@ -120,7 +117,6 @@
     position: sticky;
     left: 0 !important;
     padding-left: 17px;
-    /* background: white; */
   }
 
   & .side-header {
@@ -144,7 +140,7 @@
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
-    /* background-color: var(--g-actions-background); */
+    background-color: var(--g-actions-background);
     border-radius: 0.5rem;
     border: none;
     padding: 5px 8px;
@@ -176,7 +172,6 @@
 
   & .date-range-highlight {
     background-color: var(--g-progress-color);
-    border-radius: 12px;
     height: calc(var(--gv-lower-header-height) - 6px);
     top: calc(var(--gv-upper-header-height) + 5px);
     position: absolute;
@@ -269,7 +264,6 @@
 }
 
 .gantt {
-  height: 1000px !important;
   user-select: none;
   -webkit-user-select: none;
   position: absolute;
@@ -304,6 +298,8 @@
 
   & .bar-wrapper .bar {
     fill: var(--g-bar-color);
+    /* height: 10%; */
+    position: relative;
     stroke: var(--g-bar-border);
     stroke-width: 0;
     transition: stroke-width 0.3s ease;

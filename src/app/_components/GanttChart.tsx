@@ -20,6 +20,9 @@ export default function GanttChart() {
         date_format: "YYYY-MM-DD",
         language: "ko",
         column_width: 30,
+        bar_height: 20,
+        bar_corner_radius: 0,
+        infinite_padding: false,
         on_click: (task) => {
           console.log("Task clicked:", task);
         },
