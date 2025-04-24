@@ -5,6 +5,7 @@
   position: relative;
   overflow: auto;
   font-size: 12px;
+  width: 100%;
   height: var(--gv-grid-height);
   border-radius: 8px;
   border: 1px solid var(--g-border-color);
@@ -74,7 +75,7 @@
     height: calc(
       var(--gv-lower-header-height) + var(--gv-upper-header-height) + 10px
     );
-    background-color: var(--g-header-background);
+    /* background-color: var(--g-header-background); */
     position: sticky;
     top: 0;
     left: 0;
@@ -119,7 +120,7 @@
     position: sticky;
     left: 0 !important;
     padding-left: 17px;
-    background: white;
+    /* background: white; */
   }
 
   & .side-header {
@@ -143,7 +144,7 @@
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
-    background-color: var(--g-actions-background);
+    /* background-color: var(--g-actions-background); */
     border-radius: 0.5rem;
     border: none;
     padding: 5px 8px;
