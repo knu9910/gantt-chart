@@ -12,6 +12,7 @@
     "@prisma/client": "^6.6.0",
     "@radix-ui/react-select": "^2.2.2",
     "@syncfusion/ej2-react-gantt": "^29.1.39",
+    "@tanstack/react-query": "^5.74.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "frappe-gantt": "^1.0.3",
