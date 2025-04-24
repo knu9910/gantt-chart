@@ -40,12 +40,7 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const task = await prisma.task.update({
       where: { id: body.id },
-      data: {
-        name: body.name,
-        start: new Date(body.start),
-        end: new Date(body.end),
-        progress: body.progress,
-      },
+      data: body,
     });
     return NextResponse.json(task);
   } catch (error) {
