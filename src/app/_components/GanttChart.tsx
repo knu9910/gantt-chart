@@ -7,6 +7,7 @@ import CreateTaskForm from "./CreateTaskForm";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
+import { Task } from "@prisma/client";
 
 export default function GanttChart() {
   const ganttRef = useRef<HTMLDivElement>(null);
@@ -20,58 +21,48 @@ export default function GanttChart() {
     deleteTask,
     refetch,
   } = useTasks();
-  const [editingTask, setEditingTask] = useState<{
-    id: string;
-    name: string;
-  } | null>(null);
+  const [editingTask, setEditingTask] = useState<Omit<
+    Task,
+    "createdAt" | "updatedAt"
+  > | null>(null);
 
   const getGantInstance = () => {
-    if (ganttRef.current) {
-      ganttRef.current.innerHTML = "";
-      ganttInstance.current = new Gantt(ganttRef.current, tasks, {
-        view_mode: "Day",
-        date_format: "YYYY-MM-DD",
-        language: "ko",
-        column_width: 30,
-        bar_height: 20,
-        bar_corner_radius: 0,
-        infinite_padding: false,
-        scroll_to: "start",
-        popup: false,
-        on_click: (task) => {
-          if (task.id && task.name) {
-            setEditingTask({
-              id: task.id,
-              name: task.name,
-            });
-          }
-        },
-        on_date_change: async (task, start, end) => {
-          if (task.id && task.name) {
-            await updateTask({
-              id: task.id,
-              start: start.toISOString().split("T")[0],
-              end: end.toISOString().split("T")[0],
-              name: task.name,
-              progress: task.progress || 0,
-            });
-            refetch();
-          }
-        },
-        on_progress_change: async (task, progress) => {
-          if (task.id && task.name && task.start && task.end) {
-            await updateTask({
-              id: task.id,
-              start: task.start,
-              end: task.end,
-              name: task.name,
-              progress: progress || 0,
-            });
-            refetch();
-          }
-        },
-      });
-    }
+    if (!ganttRef.current) return;
+
+    ganttRef.current.innerHTML = "";
+    ganttInstance.current = new Gantt(ganttRef.current, tasks, {
+      view_mode: "Day",
+      date_format: "YYYY-MM-DD",
+      language: "ko",
+      column_width: 30,
+      bar_height: 20,
+      bar_corner_radius: 0,
+      infinite_padding: false,
+      scroll_to: "start",
+      popup: false,
+      on_click: (task) => {
+        if (task.id && task.name && task.start && task.end) {
+          setEditingTask({
+            ...task,
+            id: task.id,
+            name: task.name,
+            start: new Date(task.start),
+            end: new Date(task.end),
+          });
+        }
+      },
+      on_date_change: async (task, start, end) => {
+        if (!task.id || !task.name) return;
+        await updateTask({
+          id: task.id,
+          start: start.toISOString().split("T")[0],
+          end: end.toISOString().split("T")[0],
+          name: task.name,
+          progress: task.progress || 0,
+        });
+        refetch();
+      },
+    });
   };
 
   useEffect(() => {
@@ -83,14 +74,11 @@ export default function GanttChart() {
     setEditingTask({ ...editingTask, name: e.target.value });
   };
 
-  const handleNameSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleNameSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && editingTask) {
-      updateTask({
+      await updateTask({
         id: editingTask.id,
         name: editingTask.name,
-        start: tasks.find((t) => t.id === editingTask.id)?.start || "",
-        end: tasks.find((t) => t.id === editingTask.id)?.end || "",
-        progress: tasks.find((t) => t.id === editingTask.id)?.progress || 0,
       });
       setEditingTask(null);
     } else if (e.key === "Escape") {
