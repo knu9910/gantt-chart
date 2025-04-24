@@ -326,7 +326,7 @@
   }
 
   & .bar-label {
-    fill: var(--g-text-dark);
+    fill: var(--g-text-light);
     dominant-baseline: central;
     font-family: Helvetica;
     font-size: 13px;
