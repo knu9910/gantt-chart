@@ -29,7 +29,7 @@ export const DooraySideHeader = ({ className }: Readonly<Props>) => {
           {posts[0].project.code}
         </div>
       </div>
-      <div className="mb-[7.1px]">
+      <div className="mb-[7.1px] min-w-[300px]">
         <MilestoneList milestones={milestones} posts={posts} tags={tags} />
       </div>
     </div>
