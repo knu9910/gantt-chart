@@ -4,6 +4,8 @@ import {
   DoorayTag,
 } from "../../_hooks/dooray/use-dooray-projects";
 import { PostItem } from "./post-item";
+import { useDisplayPostsStore } from "../../_store/display-posts-store";
+import { useEffect } from "react";
 
 interface MilestoneListProps {
   milestones: DoorayMilestone[];
@@ -24,6 +26,22 @@ export const MilestoneList = ({
   posts,
   tags,
 }: MilestoneListProps) => {
+  const { setDisplayPostsCount } = useDisplayPostsStore();
+
+  useEffect(() => {
+    // 모든 milestone의 displayPosts 수를 합산
+    const totalDisplayPostsCount = milestones.reduce((total, milestone) => {
+      const milestonePosts = posts.filter(
+        (post) => post.milestone?.id === milestone.id
+      );
+      const displayPostsCount =
+        milestonePosts.length > 0 ? milestonePosts.length : 3;
+      return total + displayPostsCount;
+    }, 0);
+
+    setDisplayPostsCount(totalDisplayPostsCount);
+  }, [milestones, posts, setDisplayPostsCount]);
+
   return (
     <div className="flex flex-col">
       {milestones.map((milestone) => {

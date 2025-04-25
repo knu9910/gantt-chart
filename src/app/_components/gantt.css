@@ -370,4 +370,14 @@
       }
     }
   }
+
+  & .bar-wrapper.empty-task .bar {
+    fill: #f3f4f6;
+    display: none;
+    stroke: #e5e7eb;
+  }
+
+  & .bar-wrapper.empty-task:hover .bar {
+    fill: #e5e7eb;
+  }
 }
