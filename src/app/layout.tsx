@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { TanstackQueryProvider } from "@/config/tanstack-provider";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <TanstackQueryProvider>{children}</TanstackQueryProvider>
+        <TanstackQueryProvider>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </TanstackQueryProvider>
       </body>
     </html>
   );

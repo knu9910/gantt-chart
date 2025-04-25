@@ -35,14 +35,6 @@ export default function GanttChart() {
     500
   );
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const response = await fetch("/api/dooray/projects");
-      const data = await response.json();
-      console.log(data, "나올까?");
-    };
-    fetchProjects();
-  }, []);
   const getGantInstance = () => {
     if (!ganttRef.current) return;
     ganttRef.current.innerHTML = "";

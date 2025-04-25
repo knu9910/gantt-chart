@@ -22,6 +22,7 @@
     "gantt-schedule-timeline-calendar": "^3.40.5",
     "lucide-react": "^0.503.0",
     "next": "15.3.1",
+    "nuqs": "^2.4.3",
     "prisma": "^6.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

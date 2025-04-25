@@ -3,18 +3,21 @@ import { NextResponse } from "next/server";
 const DOORAY_API_BASE_URL = process.env.NEXT_PUBLIC_DOORAY_API_BASE_URL;
 const DOORAY_SERVICE_API = process.env.NEXT_PUBLIC_DOORAY_SERVICE_API;
 
-export async function GET() {
+export async function GET(
+  request: Request,
+  { params }: { params: { projectId: string } }
+) {
   try {
     if (!DOORAY_API_BASE_URL || !DOORAY_SERVICE_API) {
-      console.error("Missing Dooray API credentials");
       return NextResponse.json(
         { error: "Dooray API credentials are not configured" },
         { status: 500 }
       );
     }
 
-    const url = `${DOORAY_API_BASE_URL}/projects`;
-    console.log("Fetching from URL:", url);
+    const url = `${DOORAY_API_BASE_URL}/projects/${params.projectId}/posts`;
+
+    console.log("Fetching posts from URL:", url);
 
     const response = await fetch(url, {
       headers: {
@@ -27,16 +30,15 @@ export async function GET() {
       const errorText = await response.text();
       console.error("Error response:", errorText);
       return NextResponse.json(
-        { error: "Failed to fetch Dooray projects", details: errorText },
+        { error: "Failed to fetch Dooray posts", details: errorText },
         { status: response.status }
       );
     }
 
     const data = await response.json();
-    console.log("Successfully fetched data:", data);
-    return NextResponse.json(data);
+    return NextResponse.json(data.result);
   } catch (error) {
-    console.error("Error fetching Dooray projects:", error);
+    console.error("Error fetching Dooray posts:", error);
     return NextResponse.json(
       {
         error: "Internal server error",
@@ -46,7 +48,3 @@ export async function GET() {
     );
   }
 }
-
-// projects/{project-id}/milestones
-// projects/{project-id}/posts
-// projects/{project-id}/tags
