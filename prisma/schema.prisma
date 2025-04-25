@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,6 +13,7 @@ model Task {
   start     DateTime
   end       DateTime
   progress  Int      @default(0)
+  projectId String   // 프로젝트 ID 추가
   createdAt DateTime @default(now()) @map("created_at") // 생성일
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at") // 수정일
 } 
