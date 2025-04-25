@@ -10,28 +10,29 @@ import { useDebouncedCallback } from "use-debounce";
 import Gantt from "frappe-gantt";
 import { cn } from "@/lib/utils";
 import { useDisplayPostsStore } from "../_store/display-posts-store";
+import { useQueryState } from "nuqs";
 
 type Props = React.HTMLAttributes<HTMLElement>;
 
 export default function GanttChart({ className }: Readonly<Props>) {
   const ganttRef = useRef<HTMLDivElement>(null);
   const ganttInstance = useRef<Gantt | null>(null);
+  const [projectId] = useQueryState("projectId");
+  const { displayPostsCount } = useDisplayPostsStore();
   const {
-    tasks,
+    tasks = [],
     isFetching,
     isLoading,
     error,
     updateTask,
     deleteTask,
     refetch,
-  } = useTasks();
+  } = useTasks({ projectId: projectId || "a" });
   const [editingTask, setEditingTask] = useState<Omit<
     Task,
     "createdAt" | "updatedAt"
   > | null>(null);
-  const { displayPostsCount } = useDisplayPostsStore();
 
-  console.log(displayPostsCount, "displayPostsCount");
   const debouncedUpdateTask = useDebouncedCallback(async (value) => {
     await updateTask(value);
   }, 500);
