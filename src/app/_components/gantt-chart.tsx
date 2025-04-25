@@ -9,8 +9,11 @@ import { Trash2 } from "lucide-react";
 import { Task } from "@prisma/client";
 import { useDebouncedCallback } from "use-debounce";
 import Gantt from "frappe-gantt";
+import { cn } from "@/lib/utils";
 
-export default function GanttChart() {
+type Props = React.HTMLAttributes<HTMLElement>;
+
+export default function GanttChart({ className }: Readonly<Props>) {
   const ganttRef = useRef<HTMLDivElement>(null);
   const ganttInstance = useRef<Gantt | null>(null);
   const {
@@ -105,7 +108,7 @@ export default function GanttChart() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="mx-64">
+    <div className={cn("", className)}>
       <div className="mb-4">
         <CreateTaskForm />
       </div>
