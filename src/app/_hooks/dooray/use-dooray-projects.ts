@@ -1,32 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface DoorayMember {
-  type: string;
-  member: {
-    organizationMemberId: string;
-    name: string;
-    workflow?: {
-      id: string;
-      name: string;
-    };
-  };
-}
-
-interface DoorayUsers {
-  from: DoorayMember;
-  to: DoorayMember[];
-  cc: DoorayMember[];
-}
-
 interface DoorayProject {
   id: string;
   code: string;
-}
-
-interface DoorayParent {
-  id: string;
-  number: number;
-  subject: string;
 }
 
 export interface DoorayMilestone {
@@ -38,11 +14,6 @@ export interface DoorayMilestone {
   closedAt: string | null;
   createdAt: string;
   updatedAt: string;
-}
-
-interface DoorayWorkflow {
-  id: string;
-  name: string;
 }
 
 export interface DoorayPost {

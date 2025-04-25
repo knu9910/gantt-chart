@@ -21,10 +21,13 @@ export const DooraySideHeader = ({ className }: Readonly<Props>) => {
     return null;
   }
 
+  console.log(posts, "milestones");
   return (
     <div className={cn("", className)}>
       <div className="h-[85px] flex items-center justify-center border">
-        <div className="text-3xl font-bold text-center">W-개발팀</div>
+        <div className="text-3xl font-bold text-center">
+          {posts[0].project.code}
+        </div>
       </div>
       <div className="mb-[7.1px]">
         <MilestoneList milestones={milestones} posts={posts} tags={tags} />
