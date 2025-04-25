@@ -9,6 +9,7 @@ import { Trash2 } from "lucide-react";
 import { Task } from "@prisma/client";
 import { useDebouncedCallback } from "use-debounce";
 import Gantt from "frappe-gantt";
+
 export default function GanttChart() {
   const ganttRef = useRef<HTMLDivElement>(null);
   const ganttInstance = useRef<Gantt | null>(null);

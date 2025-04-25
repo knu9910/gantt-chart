@@ -1,27 +1,73 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface DoorayOrganization {
-  id: string;
+interface DoorayMember {
+  type: string;
+  member: {
+    organizationMemberId: string;
+    name: string;
+    workflow?: {
+      id: string;
+      name: string;
+    };
+  };
 }
 
-interface DoorayWiki {
-  id: string;
-}
-
-interface DoorayDrive {
-  id: string;
+interface DoorayUsers {
+  from: DoorayMember;
+  to: DoorayMember[];
+  cc: DoorayMember[];
 }
 
 interface DoorayProject {
   id: string;
   code: string;
-  description: string;
-  state: string;
-  scope: string;
-  type: string;
-  organization: DoorayOrganization;
-  wiki: DoorayWiki;
-  drive: DoorayDrive;
+}
+
+interface DoorayParent {
+  id: string;
+  number: number;
+  subject: string;
+}
+
+interface DoorayTag {
+  id: string;
+}
+
+interface DoorayMilestone {
+  id: string;
+  name: string;
+  status: string;
+  startedAt?: string;
+  endedAt?: string;
+  closedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface DoorayWorkflow {
+  id: string;
+  name: string;
+}
+
+export interface DoorayPost {
+  id: string;
+  subject: string;
+  project: DoorayProject;
+  taskNumber: string;
+  closed: boolean;
+  createdAt: string;
+  dueDateFlag: boolean;
+  updatedAt: string;
+  number: number;
+  priority: string;
+  parent?: DoorayParent;
+  tags: DoorayTag[];
+  users: DoorayUsers;
+  endedAt?: string;
+  fileIdList: string[];
+  workflowClass: string;
+  milestone: DoorayMilestone | null;
+  workflow: DoorayWorkflow;
 }
 
 interface DoorayHeader {
@@ -30,14 +76,14 @@ interface DoorayHeader {
   isSuccessful: boolean;
 }
 
-interface DoorayResponse {
+interface DoorayResponse<T> {
   header: DoorayHeader;
-  result: DoorayProject[];
+  result: T;
   totalCount: number;
 }
 
 export const useDoorayProjects = () => {
-  return useQuery<DoorayResponse>({
+  return useQuery<DoorayResponse<DoorayProject>>({
     queryKey: ["dooray-projects"],
     queryFn: async () => {
       const response = await fetch("/api/dooray/projects");
@@ -52,7 +98,7 @@ export const useDoorayProjects = () => {
   });
 };
 
-export const useDoorayData = (
+export const useDoorayData = <T>(
   path: string,
   queryParams?: Record<string, string>
 ) => {
@@ -61,7 +107,7 @@ export const useDoorayData = (
     : "";
   const url = `/api/dooray/${path}${queryString ? `?${queryString}` : ""}`;
 
-  return useQuery<DoorayResponse>({
+  return useQuery<T>({
     queryKey: ["dooray", path, queryParams],
     queryFn: async () => {
       const response = await fetch(url);
@@ -74,13 +120,13 @@ export const useDoorayData = (
 };
 
 export const useDoorayProjectPosts = (projectId: string) => {
-  return useDoorayData(`projects/${projectId}/posts`);
+  return useDoorayData<DoorayPost[]>(`projects/${projectId}/posts`);
 };
 
 export const useDoorayProjectMilestones = (projectId: string) => {
-  return useDoorayData(`projects/${projectId}/milestones`);
+  return useDoorayData<DoorayMilestone[]>(`projects/${projectId}/milestones`);
 };
 
 export const useDoorayProjectTags = (projectId: string) => {
-  return useDoorayData(`projects/${projectId}/tags`);
+  return useDoorayData<DoorayTag>(`projects/${projectId}/tags`);
 };
