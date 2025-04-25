@@ -48,22 +48,15 @@ interface DoorayWorkflow {
 export interface DoorayPost {
   id: string;
   subject: string;
-  project: DoorayProject;
-  taskNumber: string;
-  closed: boolean;
+  milestone?: {
+    id: string;
+    title: string;
+  };
+  tags: {
+    id: string;
+  }[];
   createdAt: string;
-  dueDateFlag: boolean;
   updatedAt: string;
-  number: number;
-  priority: string;
-  parent?: DoorayParent;
-  tags: DoorayTag[];
-  users: DoorayUsers;
-  endedAt?: string;
-  fileIdList: string[];
-  workflowClass: string;
-  milestone: DoorayMilestone | null;
-  workflow: DoorayWorkflow;
 }
 
 interface DoorayHeader {
