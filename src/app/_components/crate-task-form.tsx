@@ -44,7 +44,7 @@ export default function CreateTaskForm() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="fixed bottom-8 right-8">새 작업 추가</Button>
+        <Button className="fixed top-10 right-8">새 작업 추가</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

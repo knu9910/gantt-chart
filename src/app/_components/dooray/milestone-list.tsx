@@ -38,7 +38,7 @@ export const MilestoneList = ({
             : [EmptyPost, EmptyPost, EmptyPost];
 
         return (
-          <div key={milestone.id} className="flex">
+          <div key={milestone.id} className="flex ">
             <div className="px-8 border min-w-[200px] flex items-center">
               {milestone.name}
             </div>

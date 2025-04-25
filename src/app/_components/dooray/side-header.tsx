@@ -1,5 +1,5 @@
 "use client";
-
+import "../light.css";
 import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
 import {
@@ -23,8 +23,12 @@ export const DooraySideHeader = ({ className }: Readonly<Props>) => {
 
   return (
     <div className={cn("", className)}>
-      <h2 className="text-lg font-semibold mb-4">마일스톤 목록</h2>
-      <MilestoneList milestones={milestones} posts={posts} tags={tags} />
+      <div className="h-[85px] flex items-center justify-center border">
+        <div className="text-3xl font-bold text-center">W-개발팀</div>
+      </div>
+      <div className="mb-[7.1px]">
+        <MilestoneList milestones={milestones} posts={posts} tags={tags} />
+      </div>
     </div>
   );
 };

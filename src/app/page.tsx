@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       <div className="flex items-center min-w-[300px]">
         <DooraySideHeader className="flex-1" />
-        <GanttChart className="flex-1" />
+        <GanttChart className="flex-2 h-full" />
       </div>
     </div>
   );

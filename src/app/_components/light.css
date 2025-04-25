@@ -17,7 +17,7 @@
   --g-tick-color-thick: #f3f4f6;
   --g-tick-color: #1e293b;
   --g-actions-background: #f3f4f6;
-  --g-border-color: #1e293b;
+  --g-border-color: oklch(0.922 0 0);
   --g-text-muted: #6b7280;
   --g-text-light: #ffffff;
   --g-text-dark: #1e293b;

@@ -6,8 +6,7 @@
   overflow: auto;
   font-size: 12px;
   width: 100%;
-  height: var(--gv-grid-height);
-  border-radius: 8px;
+  /* height: var(--gv-grid-height); */
   border: 1px solid var(--g-border-color);
 
   & .popup-wrapper {
