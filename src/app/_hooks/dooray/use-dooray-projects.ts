@@ -29,11 +29,7 @@ interface DoorayParent {
   subject: string;
 }
 
-interface DoorayTag {
-  id: string;
-}
-
-interface DoorayMilestone {
+export interface DoorayMilestone {
   id: string;
   name: string;
   status: string;
@@ -128,5 +124,12 @@ export const useDoorayProjectMilestones = (projectId: string) => {
 };
 
 export const useDoorayProjectTags = (projectId: string) => {
-  return useDoorayData<DoorayTag>(`projects/${projectId}/tags`);
+  return useDoorayData<DoorayTag[]>(`projects/${projectId}/tags`);
 };
+
+export interface DoorayTag {
+  id: string;
+  name: string;
+  color: string;
+  tagGroup: null | string;
+}
