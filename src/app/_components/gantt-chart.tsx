@@ -135,11 +135,11 @@ export default function GanttChart({ className }: Readonly<Props>) {
 
   return (
     <div className={cn("", className)}>
-      <div className="overflow-hidden relative">
+      <div className="relative">
         <div className="gantt-ref" ref={ganttRef} />
         {editingTask && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-lg shadow-lg z-50">
-            <div className="flex items-center gap-2">
+          <div className="absolute top-[-4rem] left-[12rem] transform -translate-x-1/2 p-2 rounded-lg shadow-lg z-50">
+            <div className="flex items-center gap-2 ">
               <Input
                 value={editingTask.name}
                 onChange={handleNameChange}
