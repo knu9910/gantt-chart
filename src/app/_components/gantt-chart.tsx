@@ -1,8 +1,8 @@
 "use client";
 import "./gantt.css";
 import { useEffect, useRef, useState } from "react";
-import { useTasks } from "../_hooks/useTasks";
-import CreateTaskForm from "./CreateTaskForm";
+import { useTasks } from "../_hooks/use-tasks";
+import CreateTaskForm from "./crate-task-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";

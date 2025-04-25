@@ -1,4 +1,4 @@
-import GanttChart from "./_components/GanttChart";
+import GanttChart from "./_components/gantt-chart";
 
 export default function Home() {
   return (

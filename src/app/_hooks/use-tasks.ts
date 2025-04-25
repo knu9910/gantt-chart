@@ -1,7 +1,7 @@
-import { useFetchTasks } from "./useFetchTasks";
-import { useCreateTask } from "./useCreateTask";
-import { useUpdateTask } from "./useUpdateTask";
-import { useDeleteTask } from "./useDeleteTask";
+import { useFetchTasks } from "./use-fetch-tasks";
+import { useCreateTask } from "./use-create-task";
+import { useUpdateTask } from "./use-update-task";
+import { useDeleteTask } from "./use-delete-task";
 import { Task } from "@prisma/client";
 
 export function useTasks() {

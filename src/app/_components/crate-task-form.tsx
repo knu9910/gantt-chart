@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTasks } from "../_hooks/useTasks";
+import { useTasks } from "../_hooks/use-tasks";
 import {
   Dialog,
   DialogContent,
