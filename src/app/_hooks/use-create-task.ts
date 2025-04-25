@@ -1,13 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTask } from "./api";
+import { Task } from "@prisma/client";
 
-export function useCreateTask() {
+export function useCreateTask(projectId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createTask,
+    mutationFn: async (task: Omit<Task, "id" | "createdAt" | "updatedAt">) => {
+      const response = await fetch("/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...task, projectId }),
+      });
+      return response.json() as Promise<Task>;
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["tasks", projectId] });
     },
   });
 }

@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTasks } from "./api";
+import { Task } from "@prisma/client";
 
-export function useFetchTasks() {
+export function useFetchTasks(projectId: string) {
   return useQuery({
-    queryKey: ["tasks"],
-    queryFn: fetchTasks,
+    queryKey: ["tasks", projectId],
+    queryFn: async () => {
+      const response = await fetch(`/api/tasks?projectId=${projectId}`);
+      return response.json() as Promise<Task[]>;
+    },
   });
 }

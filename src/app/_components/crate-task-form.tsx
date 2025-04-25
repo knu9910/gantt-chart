@@ -12,9 +12,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useQueryState } from "nuqs";
 
 export default function CreateTaskForm() {
   const [isOpen, setIsOpen] = useState(false);
+  const [projectId] = useQueryState("projectId");
   const [formData, setFormData] = useState({
     name: "",
     start: "",
@@ -22,7 +24,7 @@ export default function CreateTaskForm() {
     progress: 0,
   });
 
-  const { createTask, refetch } = useTasks();
+  const { createTask, refetch } = useTasks({ projectId: projectId || "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
