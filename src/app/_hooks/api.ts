@@ -1,4 +1,4 @@
-import { Task } from "./types";
+import { Task } from "@prisma/client";
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const response = await fetch("/api/tasks");

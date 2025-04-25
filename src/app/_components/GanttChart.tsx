@@ -1,14 +1,14 @@
 "use client";
 import "./gantt.css";
 import { useEffect, useRef, useState } from "react";
-import Gantt from "frappe-gantt";
 import { useTasks } from "../_hooks/useTasks";
 import CreateTaskForm from "./CreateTaskForm";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { Task } from "@prisma/client";
-
+import { useDebouncedCallback } from "use-debounce";
+import Gantt from "frappe-gantt";
 export default function GanttChart() {
   const ganttRef = useRef<HTMLDivElement>(null);
   const ganttInstance = useRef<Gantt | null>(null);
@@ -26,9 +26,25 @@ export default function GanttChart() {
     "createdAt" | "updatedAt"
   > | null>(null);
 
+  const debouncedUpdateTask = useDebouncedCallback(
+    // function
+    async (value) => {
+      await updateTask(value);
+    },
+    // delay in ms
+    500
+  );
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await fetch("/api/dooray/projects");
+      const data = await response.json();
+      console.log(data, "나올까?");
+    };
+    fetchProjects();
+  }, []);
   const getGantInstance = () => {
     if (!ganttRef.current) return;
-
     ganttRef.current.innerHTML = "";
     ganttInstance.current = new Gantt(ganttRef.current, tasks, {
       view_mode: "Day",
@@ -53,14 +69,13 @@ export default function GanttChart() {
       },
       on_date_change: async (task, start, end) => {
         if (!task.id || !task.name) return;
-        await updateTask({
+        await debouncedUpdateTask({
           id: task.id,
-          start: start.toISOString().split("T")[0],
-          end: end.toISOString().split("T")[0],
+          start: new Date(start),
+          end: new Date(end),
           name: task.name,
           progress: task.progress || 0,
         });
-        refetch();
       },
     });
   };
