@@ -2,6 +2,7 @@ import { useFetchTasks } from "./useFetchTasks";
 import { useCreateTask } from "./useCreateTask";
 import { useUpdateTask } from "./useUpdateTask";
 import { useDeleteTask } from "./useDeleteTask";
+import { Task } from "@prisma/client";
 
 export function useTasks() {
   const {
@@ -21,7 +22,9 @@ export function useTasks() {
     isFetching,
     error,
     refetch,
-    createTask,
+    createTask: createTask as (
+      task: Omit<Task, "id" | "createdAt" | "updatedAt">
+    ) => Promise<Task>,
     updateTask,
     deleteTask,
   };

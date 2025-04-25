@@ -26,7 +26,11 @@ export default function CreateTaskForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createTask(formData);
+    await createTask({
+      ...formData,
+      start: new Date(formData.start),
+      end: new Date(formData.end),
+    });
     refetch();
     setFormData({
       name: "",
