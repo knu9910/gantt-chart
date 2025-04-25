@@ -1,76 +1,82 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET() {
-  try {
-    const tasks = await prisma.task.findMany();
-    return NextResponse.json(tasks);
-  } catch (error) {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const projectId = searchParams.get("projectId");
+
+  if (!projectId) {
     return NextResponse.json(
-      { error: "Failed to fetch tasks" },
-      { status: 500 }
+      { error: "Project ID is required" },
+      { status: 400 }
     );
   }
+
+  const tasks = await prisma.task.findMany({
+    where: {
+      projectId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return NextResponse.json(tasks);
 }
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const task = await prisma.task.create({
-      data: {
-        name: body.name,
-        start: new Date(body.start),
-        end: new Date(body.end),
-        progress: body.progress || 0,
-      },
-    });
-    return NextResponse.json(task);
-  } catch (error) {
+export async function POST(request: Request) {
+  const body = await request.json();
+  const { name, start, end, progress, projectId } = body;
+
+  if (!name || !start || !end || !projectId) {
     return NextResponse.json(
-      { error: "Failed to create task" },
-      { status: 500 }
+      { error: "Name, start, end, and projectId are required" },
+      { status: 400 }
     );
   }
+
+  const task = await prisma.task.create({
+    data: {
+      name,
+      start: new Date(start),
+      end: new Date(end),
+      progress: progress || 0,
+      projectId,
+    },
+  });
+
+  return NextResponse.json(task);
 }
 
 export async function PUT(request: Request) {
-  try {
-    const body = await request.json();
-    const task = await prisma.task.update({
-      where: { id: body.id },
-      data: body,
-    });
-    return NextResponse.json(task);
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to update task" },
-      { status: 500 }
-    );
+  const body = await request.json();
+  const { id, ...data } = body;
+
+  if (!id) {
+    return NextResponse.json({ error: "Task ID is required" }, { status: 400 });
   }
+
+  const task = await prisma.task.update({
+    where: { id },
+    data,
+  });
+
+  return NextResponse.json(task);
 }
 
 export async function DELETE(request: Request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
 
-    if (!id) {
-      return NextResponse.json(
-        { error: "Task ID is required" },
-        { status: 400 }
-      );
-    }
-
-    await prisma.task.delete({
-      where: { id },
-    });
-    return NextResponse.json({ message: "Task deleted successfully" });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to delete task" },
-      { status: 500 }
-    );
+  if (!id) {
+    return NextResponse.json({ error: "Task ID is required" }, { status: 400 });
   }
+
+  await prisma.task.delete({
+    where: { id },
+  });
+
+  return NextResponse.json({ success: true });
 }
