@@ -19,6 +19,20 @@ const EmptyPost: DoorayPost = {
   tags: [],
   createdAt: "",
   updatedAt: "",
+  closed: false,
+  dueDateFlag: false,
+  fileIdList: [],
+  number: 0,
+  parent: undefined,
+  priority: "",
+  project: {
+    id: "",
+    code: "",
+  },
+  taskNumber: "",
+  users: { from: {}, to: [], cc: [] },
+  workflow: { id: "", name: "" },
+  workflowClass: "",
 };
 
 export const MilestoneList = ({

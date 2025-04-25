@@ -52,6 +52,7 @@ export default function GanttChart({ className }: Readonly<Props>) {
         end: tomorrow,
         progress: 0,
         custom_class: "empty-task", // 스타일링을 위한 클래스
+        projectId: projectId || "",
       });
     }
     return emptyTasks;

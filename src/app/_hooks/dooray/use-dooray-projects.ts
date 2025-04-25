@@ -3,6 +3,19 @@ import { useQuery } from "@tanstack/react-query";
 interface DoorayProject {
   id: string;
   code: string;
+  description?: string;
+  drive?: {
+    id: string;
+  };
+  organization?: {
+    id: string;
+  };
+  scope: string;
+  state: string;
+  type: string;
+  wiki?: {
+    id: string;
+  };
 }
 
 export interface DoorayMilestone {
@@ -22,12 +35,38 @@ export interface DoorayPost {
   milestone?: {
     id: string;
     title: string;
-  };
+  } | null;
   tags: {
     id: string;
   }[];
   createdAt: string;
   updatedAt: string;
+  closed: boolean;
+  dueDateFlag: boolean;
+  endedAt?: string;
+  fileIdList: string[];
+  number: number;
+  parent?: {
+    id: string;
+    number: number;
+    subject: string;
+  };
+  priority: string;
+  project: {
+    id: string;
+    code: string;
+  };
+  taskNumber: string;
+  users: {
+    from: Record<string, any>;
+    to: any[];
+    cc: any[];
+  };
+  workflow: {
+    id: string;
+    name: string;
+  };
+  workflowClass: string;
 }
 
 interface DoorayHeader {
@@ -43,7 +82,7 @@ interface DoorayResponse<T> {
 }
 
 export const useDoorayProjects = () => {
-  return useQuery<DoorayResponse<DoorayProject>>({
+  return useQuery<DoorayResponse<DoorayProject[]>>({
     queryKey: ["dooray-projects"],
     queryFn: async () => {
       const response = await fetch("/api/dooray/projects");

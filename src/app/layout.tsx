@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { TanstackQueryProvider } from "@/config/tanstack-provider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <TanstackQueryProvider>
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <Suspense fallback={<div>Loading...</div>}>
+            <NuqsAdapter>{children}</NuqsAdapter>
+          </Suspense>
         </TanstackQueryProvider>
       </body>
     </html>

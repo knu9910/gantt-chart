@@ -35,6 +35,7 @@ declare module "frappe-gantt" {
       end?: Date;
       duration?: string;
       progress: number;
+      projectId: string;
       dependencies?: string | string[];
       custom_class?: string;
       color?: string | undefined;

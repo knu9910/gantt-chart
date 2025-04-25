@@ -5,9 +5,10 @@ const DOORAY_SERVICE_API = process.env.NEXT_PUBLIC_DOORAY_SERVICE_API;
 
 export async function GET(
   request: Request,
-  { params }: { params: { projectId: string } }
+  { params }: { params: Promise<{ projectId: string }> }
 ) {
   try {
+    const { projectId } = await params;
     if (!DOORAY_API_BASE_URL || !DOORAY_SERVICE_API) {
       return NextResponse.json(
         { error: "Dooray API credentials are not configured" },
@@ -15,7 +16,7 @@ export async function GET(
       );
     }
 
-    const url = `${DOORAY_API_BASE_URL}/projects/${params.projectId}/tags`;
+    const url = `${DOORAY_API_BASE_URL}/projects/${projectId}/tags`;
 
     console.log("Fetching tags from URL:", url);
 
