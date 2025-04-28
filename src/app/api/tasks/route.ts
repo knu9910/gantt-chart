@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const projectId = searchParams.get("projectId");
 
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
   return NextResponse.json(tasks);
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const body = await request.json();
   const { name, start, end, progress, projectId } = body;
 
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
   return NextResponse.json(task);
 }
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   const body = await request.json();
   const { id, ...data } = body;
 
@@ -64,19 +64,4 @@ export async function PUT(request: Request) {
   });
 
   return NextResponse.json(task);
-}
-
-export async function DELETE(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
-
-  if (!id) {
-    return NextResponse.json({ error: "Task ID is required" }, { status: 400 });
-  }
-
-  await prisma.task.delete({
-    where: { id },
-  });
-
-  return NextResponse.json({ success: true });
 }

@@ -55,7 +55,7 @@ export function useTasks({ projectId = "" }: UseTasksProps = {}) {
 
   const { mutateAsync: updateTask } = useMutation({
     mutationFn: async (task: Partial<Task>) => {
-      const response = await fetch(`/api/tasks/${task.id}`, {
+      const response = await fetch(`/api/tasks`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

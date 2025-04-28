@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTasks } from "../_hooks/use-tasks";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Trash2, Plus, Minus } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Task } from "@prisma/client";
 import { useDebouncedCallback } from "use-debounce";
 import Gantt from "frappe-gantt";
@@ -28,6 +28,7 @@ export default function GanttChart({ className }: Readonly<Props>) {
     deleteTask,
     refetch,
   } = useTasks({ projectId: projectId || "a" });
+
   const [editingTask, setEditingTask] = useState<Omit<
     Task,
     "createdAt" | "updatedAt"
